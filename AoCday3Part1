@@ -1,0 +1,69 @@
+R = [1,0]
+L = [-1,0]
+U = [0,1]
+D = [0,-1]
+
+def getpoints(cmdlist):
+    length=len(cmdlist)
+    points = [[0,0]]
+    for i in range(length):
+        if cmdlist[i] == "R":
+            steps = ""
+            j = i + 1
+            while j<length and cmdlist[j] != ',':
+                steps += cmdlist[j]
+                j += 1
+            for s in range(int(steps)):
+                points.append([points[-1][p] + R[p] for p in range(2)])
+            continue
+        elif cmdlist[i] == "L":
+            steps = ""
+            j = i + 1
+            while j<length and cmdlist[j] != ',':
+                steps += cmdlist[j]
+                j += 1
+            for s in range(int(steps)):
+                points.append([points[-1][p] + L[p] for p in range(2)])
+            continue
+        elif cmdlist[i] == "U":
+            steps = ""
+            j = i + 1
+            while j<length and cmdlist[j] != ',':
+                steps += cmdlist[j]
+                j += 1
+            for s in range(int(steps)):
+                points.append([points[-1][p] + U[p] for p in range(2)])
+            continue
+        elif cmdlist[i] == "D":
+            steps = ""
+            j = i + 1
+            while j<length and cmdlist[j] != ',':
+                steps += cmdlist[j]
+                j += 1
+            for s in range(int(steps)):
+                points.append([points[-1][p] + D[p] for p in range(2)])
+            continue
+        else:
+            continue
+    del points[0]
+    return points
+
+startgp = time.time()
+res_points1 = getpoints(line1)
+tuplist1 = set([tuple(point) for point in res_points1])
+res_points2 = getpoints(line2)
+tuplist2 = set([tuple(point) for point in res_points2])
+elapsegp = time.time() - startgp
+print ("GetPoints in",elapsegp)
+
+
+startis = time.time()
+intersections = [value for value in res_points1 if value in res_points2]
+elapseis = time.time() - startgp
+print ("GetInterSect in",elapseis)
+
+distance = []
+for m,n in intersections:
+    distance.append(abs(m)+abs(n))
+        
+print(min(distance))
